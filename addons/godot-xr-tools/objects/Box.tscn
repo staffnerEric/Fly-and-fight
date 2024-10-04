@@ -1,0 +1,22 @@
+[gd_scene load_steps=5 format=3 uid="uid://ba4oms2661xnp"]
+
+[ext_resource type="PackedScene" uid="uid://c8l60rnugru40" path="res://addons/godot-xr-tools/objects/pickable.tscn" id="1_60j4i"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_72utn"]
+size = Vector3(0.1, 0.1, 0.1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4fgrt"]
+albedo_color = Color(0.54902, 0.411765, 1, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_gf4x8"]
+material = SubResource("StandardMaterial3D_4fgrt")
+size = Vector3(0.1, 0.1, 0.1)
+
+[node name="PickableObject" instance=ExtResource("1_60j4i")]
+picked_up_layer = 65552
+
+[node name="CollisionShape3D" parent="." index="0"]
+shape = SubResource("BoxShape3D_72utn")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." index="1"]
+mesh = SubResource("BoxMesh_gf4x8")

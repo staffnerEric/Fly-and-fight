@@ -1,0 +1,126 @@
+[gd_scene load_steps=19 format=3 uid="uid://fh0gblim7m3d"]
+
+[ext_resource type="Script" path="res://playerbody.gd" id="1_m14u3"]
+[ext_resource type="Script" path="res://left.gd" id="1_nmqcy"]
+[ext_resource type="PackedScene" uid="uid://bl2nuu3qhlb5k" path="res://addons/godot-xr-tools/functions/movement_direct.tscn" id="2_vg6bu"]
+[ext_resource type="PackedScene" uid="uid://b4ysuy43poobf" path="res://addons/godot-xr-tools/functions/function_pickup.tscn" id="3_q7ddf"]
+[ext_resource type="PackedScene" uid="uid://c78tjrtiyqna8" path="res://addons/godot-xr-tools/functions/movement_grapple.tscn" id="4_vbdc6"]
+[ext_resource type="Script" path="res://Aim.gd" id="5_q3pq6"]
+[ext_resource type="Script" path="res://right.gd" id="6_jgcfx"]
+[ext_resource type="PackedScene" uid="uid://c2q5phg8w08o" path="res://addons/godot-xr-tools/functions/movement_jump.tscn" id="7_32u40"]
+[ext_resource type="PackedScene" uid="uid://b6bk2pj8vbj28" path="res://addons/godot-xr-tools/functions/movement_turn.tscn" id="8_amtrs"]
+[ext_resource type="Script" path="res://Aimright.gd" id="9_p5ywe"]
+[ext_resource type="PackedScene" uid="uid://diyu06cw06syv" path="res://addons/godot-xr-tools/player/player_body.tscn" id="10_ot0jp"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_0krjk"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_rbgdy"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5q182"]
+transparency = 1
+blend_mode = 1
+albedo_color = Color(1, 0, 0, 1)
+
+[sub_resource type="TubeTrailMesh" id="TubeTrailMesh_ngwtq"]
+material = SubResource("StandardMaterial3D_5q182")
+
+[sub_resource type="BoxMesh" id="BoxMesh_3w1c2"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_vgrnd"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_frgv1"]
+size = Vector3(0.315308, 0.375977, 0.182129)
+
+[node name="playerbody" type="CharacterBody3D"]
+script = ExtResource("1_m14u3")
+
+[node name="XROrigin3D" type="XROrigin3D" parent="."]
+
+[node name="XRCamera3D" type="XRCamera3D" parent="XROrigin3D"]
+current = true
+
+[node name="left" type="XRController3D" parent="XROrigin3D"]
+tracker = &"left_hand"
+script = ExtResource("1_nmqcy")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="XROrigin3D/left"]
+transform = Transform3D(0.0199985, -0.00516313, 0.000553618, 0, 0.906308, 0.0211309, -0.00024434, -0.422587, 0.045312, -0.02, 0.35, -0.1)
+mesh = SubResource("BoxMesh_0krjk")
+
+[node name="left_sword" type="Area3D" parent="XROrigin3D/left/MeshInstance3D"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="XROrigin3D/left/MeshInstance3D/left_sword"]
+transform = Transform3D(1, 0, 3.72529e-09, -7.27596e-12, 1, 0, 0, 0, 1, 0, 0, 0)
+shape = SubResource("BoxShape3D_rbgdy")
+
+[node name="MovementDirect" parent="XROrigin3D/left" instance=ExtResource("2_vg6bu")]
+max_speed = 5.0
+strafe = true
+
+[node name="FunctionPickup" parent="XROrigin3D/left" instance=ExtResource("3_q7ddf")]
+
+[node name="MovementGrapple" parent="XROrigin3D/left" instance=ExtResource("4_vbdc6")]
+transform = Transform3D(1, 0, 0, 0, 0.906308, 0.422618, 0, -0.422618, 0.906308, 0, 0, 0)
+grapple_length = 10000.0
+impulse_speed = 40.0
+winch_speed = 15.0
+
+[node name="Aim" type="MeshInstance3D" parent="XROrigin3D/left"]
+transform = Transform3D(0.02, 0, 0, 0, 422.618, -0.0181262, 0, 906.308, 0.00845236, -0.02, -211.288, -453.109)
+mesh = SubResource("TubeTrailMesh_ngwtq")
+skeleton = NodePath("")
+script = ExtResource("5_q3pq6")
+
+[node name="SpringArm3D" type="SpringArm3D" parent="XROrigin3D/left"]
+transform = Transform3D(1, 0, 0, 0, 0.906308, 0.422618, 0, -0.422618, 0.906308, -0.02, 0.5, -0.2)
+spring_length = -1.0
+
+[node name="right" type="XRController3D" parent="XROrigin3D"]
+tracker = &"right_hand"
+script = ExtResource("6_jgcfx")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="XROrigin3D/right"]
+transform = Transform3D(0.02, 0, 0, 0, 0.906308, 0.0211309, 0, -0.422618, 0.0453154, 0.02, 0.35, -0.1)
+mesh = SubResource("BoxMesh_3w1c2")
+
+[node name="right_sword" type="Area3D" parent="XROrigin3D/right/MeshInstance3D"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="XROrigin3D/right/MeshInstance3D/right_sword"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 4.76837e-07, 1, 0, 0, 0)
+shape = SubResource("BoxShape3D_vgrnd")
+
+[node name="MovementJump" parent="XROrigin3D/right" instance=ExtResource("7_32u40")]
+jump_button_action = "ax_button"
+
+[node name="MovementTurn" parent="XROrigin3D/right" instance=ExtResource("8_amtrs")]
+smooth_turn_speed = 7.0
+
+[node name="FunctionPickup" parent="XROrigin3D/right" instance=ExtResource("3_q7ddf")]
+
+[node name="MovementGrapple" parent="XROrigin3D/right" instance=ExtResource("4_vbdc6")]
+transform = Transform3D(1, 0, 0, 0, 0.906308, 0.422618, 0, -0.422618, 0.906308, 0, 0, 0)
+grapple_length = 10000.0
+impulse_speed = 40.0
+winch_speed = 15.0
+
+[node name="Aim" type="MeshInstance3D" parent="XROrigin3D/right"]
+transform = Transform3D(0.02, 0, 0, 0, 422.618, -0.0181262, 0, 906.308, 0.00845236, 0.02, -211.288, -453.109)
+mesh = SubResource("TubeTrailMesh_ngwtq")
+skeleton = NodePath("")
+script = ExtResource("9_p5ywe")
+
+[node name="SpringArm3D" type="SpringArm3D" parent="XROrigin3D/right"]
+transform = Transform3D(1, 0, 0, 0, 0.906308, 0.422618, 0, -0.422618, 0.906308, 0.02, 0.5, -0.2)
+spring_length = -1.0
+
+[node name="PlayerBody" parent="XROrigin3D" instance=ExtResource("10_ot0jp")]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+light_energy = 2.0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00897148, 0.00771403, 0.0870057)
+shape = SubResource("BoxShape3D_frgv1")
+
+[connection signal="body_entered" from="XROrigin3D/left/MeshInstance3D/left_sword" to="." method="_on_left_sword_body_entered"]
+[connection signal="body_entered" from="XROrigin3D/right/MeshInstance3D/right_sword" to="." method="_on_right_sword_body_entered"]

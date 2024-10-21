@@ -1,0 +1,44 @@
+[gd_scene load_steps=7 format=3 uid="uid://vdb462gcblua"]
+
+[ext_resource type="Script" path="res://Target.gd" id="1_iygmw"]
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_8hcgk"]
+points = PackedVector3Array(-1, -3.04355, -1, -1, -3.04355, 1, -1, 3.04347, -1, 1, -3.04355, -1, 1, -3.04355, 1, -1, 3.04347, 1, 1, 3.04347, -1, 1, 3.04347, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vp33y"]
+albedo_color = Color(0, 0.364706, 0, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_1rmtm"]
+material = SubResource("StandardMaterial3D_vp33y")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_js4h3"]
+albedo_color = Color(1, 0, 0, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_kd5oh"]
+material = SubResource("StandardMaterial3D_js4h3")
+
+[node name="Target" type="StaticBody3D" groups=["Hit"]]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
+script = ExtResource("1_iygmw")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("ConvexPolygonShape3D_8hcgk")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.1
+
+[node name="Target" type="MeshInstance3D" parent="."]
+transform = Transform3D(2, 0, 0, 0, 6, 0, 0, 0, 2, 0, 0, 0)
+mesh = SubResource("BoxMesh_1rmtm")
+skeleton = NodePath("")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Target"]
+transform = Transform3D(1.02, 0, 0, 0, 1.02, 0, 0, 0, 1.02, 0, 0, 0)
+visible = false
+mesh = SubResource("BoxMesh_kd5oh")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+light_color = Color(0.568627, 1, 0.568627, 1)
+light_energy = 2.0
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://fh0gblim7m3d"]
+[gd_scene load_steps=21 format=3 uid="uid://fh0gblim7m3d"]
 
 [ext_resource type="Script" path="res://playerbody.gd" id="1_m14u3"]
 [ext_resource type="Script" path="res://left.gd" id="1_nmqcy"]
@@ -24,9 +24,13 @@ albedo_color = Color(1, 0, 0, 1)
 [sub_resource type="TubeTrailMesh" id="TubeTrailMesh_ngwtq"]
 material = SubResource("StandardMaterial3D_5q182")
 
+[sub_resource type="BoxMesh" id="BoxMesh_xpqu1"]
+
 [sub_resource type="BoxMesh" id="BoxMesh_3w1c2"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_vgrnd"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_3sviv"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_frgv1"]
 size = Vector3(0.315308, 0.375977, 0.182129)
@@ -44,7 +48,7 @@ tracker = &"left_hand"
 script = ExtResource("1_nmqcy")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="XROrigin3D/left"]
-transform = Transform3D(0.0199985, -0.00516313, 0.000553618, 0, 0.906308, 0.0211309, -0.00024434, -0.422587, 0.045312, -0.02, 0.35, -0.1)
+transform = Transform3D(0.02, 0, 0, 0, 0.906308, 0.0211309, 0, -0.422618, 0.0453154, -0.02, 0.35, -0.1)
 mesh = SubResource("BoxMesh_0krjk")
 
 [node name="left_sword" type="Area3D" parent="XROrigin3D/left/MeshInstance3D"]
@@ -74,6 +78,10 @@ script = ExtResource("5_q3pq6")
 [node name="SpringArm3D" type="SpringArm3D" parent="XROrigin3D/left"]
 transform = Transform3D(1, 0, 0, 0, 0.906308, 0.422618, 0, -0.422618, 0.906308, -0.02, 0.5, -0.2)
 spring_length = -1.0
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="XROrigin3D/left"]
+transform = Transform3D(0.02, 0, 0, 0, 0.0906308, 0.0211309, 0, -0.0422618, 0.0453154, -0.02, 0.55, -0.1937)
+mesh = SubResource("BoxMesh_xpqu1")
 
 [node name="right" type="XRController3D" parent="XROrigin3D"]
 tracker = &"right_hand"
@@ -112,6 +120,10 @@ script = ExtResource("9_p5ywe")
 [node name="SpringArm3D" type="SpringArm3D" parent="XROrigin3D/right"]
 transform = Transform3D(1, 0, 0, 0, 0.906308, 0.422618, 0, -0.422618, 0.906308, 0.02, 0.5, -0.2)
 spring_length = -1.0
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="XROrigin3D/right"]
+transform = Transform3D(0.02, 0, 0, 0, 0.0906308, 0.0211309, 0, -0.0422618, 0.0453154, 0.02, 0.55, -0.194)
+mesh = SubResource("BoxMesh_3sviv")
 
 [node name="PlayerBody" parent="XROrigin3D" instance=ExtResource("10_ot0jp")]
 

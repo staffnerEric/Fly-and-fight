@@ -1,6 +1,5 @@
 extends CharacterBody3D
 
-
 var score = 0
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -16,7 +15,7 @@ func _on_left_sword_body_entered(body):
 		print(score)
 	if body.is_in_group("Solid"):
 		print("Hit")
-		$".".velocity = ($XROrigin3D.position - $XROrigin3D/left.position) * 100 + $".".velocity
+		$".".velocity = $".".velocity + ($XROrigin3D/left.position - $XROrigin3D/left/MeshInstance3D2.position) * 100
 
 func _on_right_sword_body_entered(body):
 	if body.is_in_group("Hit"):
@@ -25,4 +24,4 @@ func _on_right_sword_body_entered(body):
 		print(score)
 	if body.is_in_group("Solid"):
 		print("Hit")
-		$".".velocity = ($XROrigin3D.position - $XROrigin3D/right.position) * 100 + $".".velocity
+		$".".velocity = $".".velocity + ($XROrigin3D/right.position - $XROrigin3D/right/MeshInstance3D2.position) * 100

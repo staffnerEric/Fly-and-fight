@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://fh0gblim7m3d"]
+[gd_scene load_steps=22 format=3 uid="uid://fh0gblim7m3d"]
 
 [ext_resource type="Script" path="res://playerbody.gd" id="1_m14u3"]
 [ext_resource type="Script" path="res://left.gd" id="1_nmqcy"]
@@ -31,6 +31,8 @@ material = SubResource("StandardMaterial3D_5q182")
 [sub_resource type="BoxShape3D" id="BoxShape3D_vgrnd"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_3sviv"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_hh0w7"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_frgv1"]
 size = Vector3(0.315308, 0.375977, 0.182129)
@@ -126,6 +128,15 @@ transform = Transform3D(0.02, 0, 0, 0, 0.0906308, 0.0211309, 0, -0.0422618, 0.04
 mesh = SubResource("BoxMesh_3sviv")
 
 [node name="PlayerBody" parent="XROrigin3D" instance=ExtResource("10_ot0jp")]
+
+[node name="XRController3D" type="XRController3D" parent="XROrigin3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.00332928, 0.0370409)
+tracker = &"/user/vive_tracker_htcx/role/chest"
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="XROrigin3D/XRController3D"]
+transform = Transform3D(0.172755, 0, 0, 0, 0.140906, 0, 0, 0, 0.182732, 0, 0, 0.0500271)
+mesh = SubResource("BoxMesh_hh0w7")
+skeleton = NodePath("../../..")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 light_energy = 2.0

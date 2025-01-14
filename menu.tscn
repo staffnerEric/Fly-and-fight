@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://dyjdk4f01huwl"]
+
+[ext_resource type="PackedScene" uid="uid://clujaf3u776a3" path="res://addons/godot-xr-tools/objects/viewport_2d_in_3d.tscn" id="1_py6b1"]
+[ext_resource type="PackedScene" uid="uid://cp4iyed6ht8bn" path="res://UI.tscn" id="2_dwd45"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_e238l"]
+
+[node name="menu" type="Node3D"]
+
+[node name="Viewport2Din3D" parent="." instance=ExtResource("1_py6b1")]
+transform = Transform3D(0.001, 0, 0, 0, 0.001, 0, 0, 0, 0.000952303, 0, 0, 0)
+screen_size = Vector2(1280, 768)
+scene = ExtResource("2_dwd45")
+viewport_size = Vector2(640, 360)
+scene_properties_keys = PackedStringArray()
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(4.94047, 0, 0, 0, 0.666331, 0, 0, 0, 4.94047, -0.0945181, -0.857063, 0.130714)
+mesh = SubResource("BoxMesh_e238l")
